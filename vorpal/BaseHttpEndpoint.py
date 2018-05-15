@@ -1,3 +1,7 @@
+"""
+Module containing base class for HTTP endpoints.
+"""
+
 import requests
 
 class BaseHttpEndpoint:
