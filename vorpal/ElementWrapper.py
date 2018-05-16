@@ -14,8 +14,27 @@ class ExtendedWebElement:
         """
         self.element = element
 
-    # TODO: figure out if there's a more graceful way to delegate methods to element
+    # Overwritten methods from WebElement
+    @property
+    def text(self):
+        """The text (or value if input) of the element."""
+        text = ''
+        if self.element.tag_name == 'input':
+            text = self.element.get_attribute('value')
+        else:
+            text =  self.element.text
+        
+        # If still no text, try 'innerText' attribute
+        if len(text) == 0:
+            text = self.element.get_attribute("innerText")
+        
+        return text.strip()
+
     
+
+    # TODO: figure out if there's a more graceful way to delegate methods to element
+    # All methods below this point simply delegate to self.element
+    # The names of methods below and WebElement methods are identical
     def __repr__(self):
         return self.element.__repr__
 
@@ -23,11 +42,6 @@ class ExtendedWebElement:
     def tag_name(self):
         """This element's ``tagName`` property."""
         return self.element.tag_name
-
-    @property
-    def text(self):
-        """The text of the element."""
-        return self.element.text
 
     def click(self):
         """Clicks the element."""
