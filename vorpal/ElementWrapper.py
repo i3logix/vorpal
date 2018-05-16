@@ -3,18 +3,21 @@ Module containing wrapper class for Selenium Web.
 """
 
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.common.action_chains import ActionChains
 
 class ExtendedWebElement:
     """
     Extends web elements with additional functionality.
     """
 
-    def __init__(self, element: WebElement):
+    def __init__(self, element: WebElement, driver):
         """
         Initializes ExtendedWebElement with Selenium WebElement.
         :param element: base Selenium WebElement
+        :param driver: Selenium driver for methods that require knowledge of driver/browser
         """
         self.element = element
+        self.driver = driver
 
     # Overwritten methods from WebElement
     @property
@@ -39,6 +42,11 @@ class ExtendedWebElement:
         """
         self.element.clear()
         self.element.send_keys(text_value)
+    
+    def double_click(self):
+        actions = ActionChains(self.driver)
+        actions.double_click(self.element)
+        actions.perform()
 
     # TODO: figure out if there's a more graceful way to delegate methods to element
     # All methods below this point simply delegate to self.element
