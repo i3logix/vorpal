@@ -69,6 +69,21 @@ class BaseHttpEndpoint:
             return requests.put(self.base_url + relative_path, json=data, cookies=self.cookies, **kwargs)
         else:
             return requests.put(self.base_url + relative_path, data=data, cookies=self.cookies, **kwargs)
+    
+    def PATCH(self, relative_path='/', data = {}, is_json=True, **kwargs):
+        """
+        Send PATCH request to endpoint
+        :param relative_path: (optional) path to endpoint relative to base_url (e.g. '/users')
+        :param data: (optional) request data as dict
+        :param is_json: (optional) sends data as JSON if true, else as form data
+        :param **kwargs: (optional) additional keyword args to pass to requests.put
+        :return: response object from 'requests' library
+        """
+        # If not is_json, we assume data is from a form
+        if is_json:
+            return requests.patch(self.base_url + relative_path, json=data, cookies=self.cookies, **kwargs)
+        else:
+            return requests.patch(self.base_url + relative_path, data=data, cookies=self.cookies, **kwargs)
 
     def DELETE(self, relative_path='/', **kwargs):
         """
