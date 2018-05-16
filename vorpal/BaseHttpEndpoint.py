@@ -38,7 +38,8 @@ class BaseHttpEndpoint:
         :param **kwargs: (optional) additional keyword args to pass to requests.get
         :return: response object from 'requests' library
         """
-        return requests.get(self.base_url + relative_path, params=query_params, cookies=self.cookies, **kwargs)
+        cookies = kwargs['cookies'] if 'cookies' in kwargs else self.cookies
+        return requests.get(self.base_url + relative_path, params=query_params, cookies=cookies, **kwargs)
     
     def POST(self, relative_path='/', data = {}, is_json=True, **kwargs):
         """
@@ -49,11 +50,12 @@ class BaseHttpEndpoint:
         :param **kwargs: (optional) additional keyword args to pass to requests.post
         :return: response object from 'requests' library
         """
+        cookies = kwargs['cookies'] if 'cookies' in kwargs else self.cookies
         # If not is_json, we assume data is from a form
         if is_json:
-            return requests.post(self.base_url + relative_path, json=data, cookies=self.cookies, **kwargs)
+            return requests.post(self.base_url + relative_path, json=data, cookies=cookies, **kwargs)
         else:
-            return requests.post(self.base_url + relative_path, data=data, cookies=self.cookies, **kwargs)
+            return requests.post(self.base_url + relative_path, data=data, cookies=cookies, **kwargs)
     
     def PUT(self, relative_path='/', data = {}, is_json=True, **kwargs):
         """
@@ -65,10 +67,11 @@ class BaseHttpEndpoint:
         :return: response object from 'requests' library
         """
         # If not is_json, we assume data is from a form
+        cookies = kwargs['cookies'] if 'cookies' in kwargs else self.cookies
         if is_json:
-            return requests.put(self.base_url + relative_path, json=data, cookies=self.cookies, **kwargs)
+            return requests.put(self.base_url + relative_path, json=data, cookies=cookies, **kwargs)
         else:
-            return requests.put(self.base_url + relative_path, data=data, cookies=self.cookies, **kwargs)
+            return requests.put(self.base_url + relative_path, data=data, cookies=cookies, **kwargs)
     
     def PATCH(self, relative_path='/', data = {}, is_json=True, **kwargs):
         """
@@ -79,11 +82,12 @@ class BaseHttpEndpoint:
         :param **kwargs: (optional) additional keyword args to pass to requests.put
         :return: response object from 'requests' library
         """
+        cookies = kwargs['cookies'] if 'cookies' in kwargs else self.cookies
         # If not is_json, we assume data is from a form
         if is_json:
-            return requests.patch(self.base_url + relative_path, json=data, cookies=self.cookies, **kwargs)
+            return requests.patch(self.base_url + relative_path, json=data, cookies=cookies, **kwargs)
         else:
-            return requests.patch(self.base_url + relative_path, data=data, cookies=self.cookies, **kwargs)
+            return requests.patch(self.base_url + relative_path, data=data, cookies=cookies, **kwargs)
 
     def DELETE(self, relative_path='/', **kwargs):
         """
@@ -92,4 +96,5 @@ class BaseHttpEndpoint:
         :param **kwargs: (optional) additional keyword args to pass to requests.delete
         :return: response object from 'requests' library
         """
-        return requests.delete(self.base_url + relative_path, cookies=self.cookies, **kwargs)
+        cookies = kwargs['cookies'] if 'cookies' in kwargs else self.cookies
+        return requests.delete(self.base_url + relative_path, cookies=cookies, **kwargs)
