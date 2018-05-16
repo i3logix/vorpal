@@ -7,20 +7,25 @@ Vorpal is an end-to-end automated testing framework designed to balance ease of 
 * Python 3+
 
 ### First time setup
-**Note:** While using a `virtualenv` is strongly recommended for Python projects, it isn't required. If you don't want to use `virtualenv` or have your own way of setting one up, feel free to skip to step **(4)**
+**Note:** The venv module has been included for the standard library in Python 3.3 and higher. 
 
-0. If necessary, install the `virtualenv` package for Python
-    * Command: `pip install virutalenv`
-1. Create a virtual environment named `venv`
-    * Command: `virtualenv venv`
-2. If necessary, add `execute` permission for the current user to `./venv/bin/activate`
-    * Command: `chmod u+x ./venv/bin/activate`
-3. Activate the virtual environment
-    * Command: `source ./venv/bin/activate`
-4. Install the Vorpal framework via pip
-    * Command: `pip install vorpal`
-5. Install any other necessary dependencies for your project, like test runners (`pytest`, `nose`, etc.)
+**Side Note:** The pyvenv command is a wrapper around the venv module and some users have indicated we might want to consider avoiding the wrapper and just using the module directly.
+
+From Python 3.3 to 3.4 the recommended way to create a virtual environment was to use the pyvenv command-line tool that also comes included with your Python 3 installation by default. But on 3.6 and above, python3 -m venv is the way to go.
+
+1. Create a virtual environment named `env`
+    * Command: `python3 -m venv env`
+2. Activate the virtual environment
+    * Command: `source env/bin/activate`
+    * The following information obtained from: https://realpython.com/python-virtual-environments-a-primer/
+    ** Notice how your prompt is now prefixed with the name of your environment (env, in this case)
+    ** This is the indicator that env is currently active, which means the python executable will only use this environment’s packages and settings.
+3. Install the Vorpal framework via pip
+    * Command: `pip3 install vorpal`
+4. Install any other necessary dependencies for your project, like test runners (`pytest`, `nose`, etc.)
     * **Note:** You do _not_ need to separately install `selenium` since it is installed as a dependency of Vorpal
+    
+**Tip:** https://realpython.com/python-virtual-environments-a-primer/ This site seems to contain some useful tips about maintaining multiple environments and using a tool called `virtualenvwrapper` to assist with this maintenance.
 
 ## Directions for Vorpal package owners/maintainers
 ### How to upload a new package version
