@@ -2,12 +2,14 @@
 Module containing wrapper class for Selenium Web.
 """
 
+from selenium.webdriver.remote.webelement import WebElement
+
 class ExtendedWebElement:
     """
     Extends web elements with additional functionality.
     """
 
-    def __init__(self, element):
+    def __init__(self, element: WebElement):
         """
         Initializes ExtendedWebElement with Selenium WebElement.
         :param element: base Selenium WebElement
@@ -30,7 +32,13 @@ class ExtendedWebElement:
         
         return text.strip()
 
-    
+    def set_value(self, text_value: str):
+        """
+        Set value in text field, clearing preexisting content.
+        :param text_value: Text value to element
+        """
+        self.element.clear()
+        self.element.send_keys(text_value)
 
     # TODO: figure out if there's a more graceful way to delegate methods to element
     # All methods below this point simply delegate to self.element
