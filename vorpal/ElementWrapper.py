@@ -37,6 +37,11 @@ class ExtendedWebElement:
             text = self.element.get_attribute("innerText")
         
         return text.strip()
+    
+    @property
+    def text_raw(self):
+        """The raw 'text' attribute of an element, regardless of tag_name"""
+        return self.element.text
 
     def set_value(self, text_value: str):
         """
