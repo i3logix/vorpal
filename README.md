@@ -1,19 +1,15 @@
-# Vorpal: End-to-end Automated Testing Framework for Python
+# Vorpal: End-to-end Web Automation Framework for Python
 ## Goals
-Vorpal is an end-to-end automated testing framework designed to balance ease of development with performance and customizability.
+Vorpal is an end-to-end browser and API automation framework designed to balance ease of development with performance and customizability.
 
-## How to use Vorpal in a test project
+## How to use Vorpal
 ### Requirements
 * Python 3+
 
 ### First time setup
 **Note:** The venv module has been included for the standard library in Python 3.3 and higher. 
 
-**Side Note:** The pyvenv command is a wrapper around the venv module and some users have indicated we might want to consider avoiding the wrapper and just using the module directly.
-
-From Python 3.3 to 3.4 the recommended way to create a virtual environment was to use the pyvenv command-line tool that also comes included with your Python 3 installation by default. But on 3.6 and above, python3 -m venv is the way to go.
-
-1. Create a virtual environment named `env`
+1. Create a virtual environment named `env`<sup>[1](#footnote1)</sup>
     * Command: `python3 -m venv env`
 2. Activate the virtual environment
     * Command: `source env/bin/activate`
@@ -22,8 +18,12 @@ From Python 3.3 to 3.4 the recommended way to create a virtual environment was t
     ** This is the indicator that env is currently active, which means the python executable will only use this environment’s packages and settings.
 3. Install the Vorpal framework via pip
     * Command: `pip3 install vorpal`
-4. Install any other necessary dependencies for your project, like test runners (`pytest`, `nose`, etc.)
-    * **Note:** You do _not_ need to separately install `selenium` since it is installed as a dependency of Vorpal
+4. Install any other necessary dependencies for your project
+    * **Note:** Although Vorpal uses Selenium, you do _not_ need to separately install `selenium` - it is installed as a dependency of Vorpal
+
+<a name="footnote1"><sup>1</sup></a> <i><small>The pyvenv command is a wrapper around the venv module and some users have indicated we might want to consider avoiding the wrapper and just using the module directly.
+
+From Python 3.3 to 3.4 the recommended way to create a virtual environment was to use the pyvenv command-line tool that also comes included with your Python 3 installation by default. But on 3.6 and above, python3 -m venv is the way to go.</small></i>
     
 **Tip:** https://realpython.com/python-virtual-environments-a-primer/ This site seems to contain some useful tips about maintaining multiple environments and using a tool called `virtualenvwrapper` to assist with this maintenance.
 
