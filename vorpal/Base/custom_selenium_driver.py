@@ -1,15 +1,14 @@
 """
 Package: Base
-WCustomSeleniumDriver class implementation.
+CustomSeleniumDriver class implementation.
 Methods for adding the new functionality to selenium methods.
 """
 from selenium.common.exceptions import NoSuchElementException, ElementNotSelectableException, ElementNotVisibleException
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.remote.webelement import WebElement
-from Base.utilities import Utilities
+from vorpal.Base.utilities import Utilities
 import logging
 import time
 import os
@@ -84,94 +83,6 @@ class CustomSeleniumDriver:
 
         except Exception as err:
             self.logger.error("ELEMENT: " + element_name + " was NOT found." + str(err))
-            raise
-
-    def get_element_text(self, locator: dict, element: WebElement = None) -> str:
-        """
-        Get text value from element. Sometimes does not work with fields which has "pattern" 
-        :param locator: locator of an element. OR
-        :param element: WebElement object.
-        :return: text (string)
-        """
-        try:
-            if locator:
-                element = self.get_element(locator)
-
-            text = element.get_attribute('value') if element.tag_name == 'input' else element.text
-
-            if len(text) == 0:
-                text = element.get_attribute("innerText")
-
-            if len(text) != 0:
-                self.logger.info("The Text on the element is: " + text)
-                text = text.strip()
-            return text
-
-        except Exception as err:
-            if element:
-                self.logger.error("Failed to get text on element: " + str(element))
-            else:
-                self.logger.error("Failed to get text on element with locator: " + locator['Element name'])
-            self.logger.error(str(err))
-            raise
-
-    def set_element_text(self, text_value: str, locator: dict, element: WebElement = None) -> None:
-        """
-        Add value to text field.
-        :param text_value: Text value to element
-        :param locator: locator of an element. OR
-        :param element: WebElement object.
-        :return: nothing
-        """
-        try:
-            if locator:
-                element = self.get_element(locator)
-
-            element.clear()
-            element.send_keys(text_value)
-
-        except Exception as err:
-            if element:
-                self.logger.error("Failed to put text to the element: " + str(element))
-            else:
-                self.logger.error("Failed to put text to the element with locator: " + locator['Element name'])
-            self.logger.error(str(err))
-            raise
-
-    def element_click(self, locator: dict, element: WebElement = None) -> None:
-        """
-        Click on a specific element.
-        :param locator: locator of an element. OR
-        :param element: WebElement object.
-        """
-
-        try:
-            if locator:
-                element = self.get_element(locator)
-            element.click()
-        except Exception as err:
-            self.logger.error("An Error has occurred: Element " + locator['Element name'] + "could not be clicked.")
-            self.logger.error(str(err))
-            raise
-
-    def element_double_click(self, locator: dict, element: WebElement = None) -> None:
-        """
-        Double Click on a specific element. FF had an issue with double click, so need to double check 
-        :param locator: locator of an element. OR
-        :param element: WebElement object.
-        """
-
-        try:
-            if locator:
-                element = self.get_element(locator)
-
-            actions = ActionChains(self.driver)
-            actions.double_click(element)
-            actions.perform()
-
-        except Exception as err:
-            self.logger.error("An Error has occurred: Element could not be clicked.")
-            self.logger.error(str(err))
             raise
 
     def take_screen_shot(self, log_message: str, directory: str = "../Screenshots/") -> None:
