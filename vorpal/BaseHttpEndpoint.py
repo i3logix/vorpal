@@ -16,7 +16,6 @@ class BaseHttpEndpoint:
         """
         Initializes the BaseHttpEndpoint class.
         :param base_url: base url for the endpoint as str (e.g. 'https://wwwi3logix.com')
-        :param cookies: (optional) list of dicts of cookies ('name' and 'value' required)
         """
         # If the provided base_url ends with '/', snip that off
         self.base_url = base_url if base_url[-1] != '/' else base_url[:-1]
@@ -29,7 +28,7 @@ class BaseHttpEndpoint:
         :param **kwargs: (optional) additional keyword args to pass to requests.get
         :return: response object from 'requests' library
         """
-        return requests.get(self.base_url + relative_path, params=query_params, cookies=cookies, **kwargs)
+        return requests.get(self.base_url + relative_path, params=query_params, **kwargs)
     
     def POST(self, relative_path='/', data = {}, is_json=True, **kwargs):
         """
