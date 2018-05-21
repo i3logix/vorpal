@@ -37,7 +37,6 @@ def test_http_endpoint():
     """
     github_api_endpoint = BaseHttpEndpoint("https://api.github.com")
     response_body = github_api_endpoint.GET().json()
-    print(response_body)
     assert response_body["current_user_url"] == "https://api.github.com/user"
 
 
