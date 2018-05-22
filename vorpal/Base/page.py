@@ -17,6 +17,10 @@ class BasePage(ABC):
         self.name = page_name
 
     def goto(self, **kwargs):
+        """
+        Uses driver to navigate to self.url if set, otherwise raises Exception
+        :param **kwargs: keyword arguments converted into key=value query parameters
+        """
         if self.url == None:
             raise Exception(f"Attempted to goto {self.name}, but no url was provided in class definition.")
 
@@ -34,4 +38,7 @@ class BasePage(ABC):
 
     @abstractmethod
     def isCurrentPage(self):
+        """
+        (Abstract) Verifies that driver is on current page.
+        """
         pass
