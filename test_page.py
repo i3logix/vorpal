@@ -1,5 +1,6 @@
 "Tests for page object implementation"
 import pytest
+from unittest.mock import Mock
 from vorpal import webdriver, custom_selenium_driver, BasePage
 
 class NoAbstractImplementation(BasePage):
@@ -34,6 +35,7 @@ class PythonPage(BasePage):
 
 def test_goto_works():
     "Assert goto() and isCurrentPage() work if well-defined in class definition"
-    driver = custom_selenium_driver.CustomSeleniumDriver(webdriver.Chrome())
-    page = PythonPage(driver, 'Python Homepage')
-    page.goto().isCurrentPage()
+    mockdriver = Mock()
+    page = PythonPage(mockdriver, 'Python Homepage')
+    page.goto()
+    mockdriver.driver.get.assert_called_with("https://www.python.org")
