@@ -28,11 +28,11 @@ From Python 3.3 to 3.4 the recommended way to create a virtual environment was t
 **Tip:** https://realpython.com/python-virtual-environments-a-primer/ This site seems to contain some useful tips about maintaining multiple environments and using a tool called `virtualenvwrapper` to assist with this maintenance.
 
 ### Testing updates locally
-Before pushing up changes, we want to test our changes locally. To do this, we use `pytest` to run test cases stored in `test_local.py`. Run the `pytest` command from the command line at the project root to ensure your changes haven't unexpectedly broken existing functionality, and update tests where appropriate if your changes lead to different results.
+Before pushing up changes, we want to test our changes locally. To do this, we use `pytest` to run test cases stored in `test_local.py` and `test_page.py`. Run the `pytest` command from the command line at the project root to ensure your changes haven't unexpectedly broken existing functionality, and update tests where appropriate if your changes lead to different results.
 
 If you're adding new functionality, please be sure to write well-targeted test cases that test the new feature in isolation if at all possible. This makes it easier to track down any major breaking changes down the road.
 
-If `test_local.py` starts getting too big, feel free to make an additional test file. If you do, please update this documentation as part of your PR.
+If any of the existing test files start getting too big, or if your feature requires extensive testing, feel free to make an additional test file (this was done in the case of `BasePage`, which led to `test_page.py`). If you do, please update this documentation as part of your PR.
 
 ## Directions for Vorpal package owners/maintainers
 ### How to upload a new package version
