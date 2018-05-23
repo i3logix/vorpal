@@ -8,7 +8,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.remote.webelement import WebElement
-from vorpal.Base.utilities import Utilities
+from vorpal.Base.custom_logger import FrameworkLogger
 import logging
 import time
 import os
@@ -16,7 +16,7 @@ import os
 
 class CustomSeleniumDriver:
 
-    logger = Utilities.custom_logger(logging.DEBUG)
+    logger = FrameworkLogger.custom_logger(logging.DEBUG)
 
     def __init__(self, driver) -> None:
         self.driver = driver
