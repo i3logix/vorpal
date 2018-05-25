@@ -20,7 +20,8 @@ setup(
     },
     packages=find_packages(),
     install_requires=[
-        'selenium'
+        'selenium',
+        'requests'
     ],
     python_requires='>=3.6',
     package_data={},
