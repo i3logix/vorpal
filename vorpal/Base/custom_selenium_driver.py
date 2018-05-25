@@ -8,15 +8,11 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.remote.webelement import WebElement
-from vorpal.Base.utilities import Utilities
-import logging
 import time
 import os
 
 
 class CustomSeleniumDriver:
-
-    logger = Utilities.custom_logger(logging.DEBUG)
 
     def __init__(self, driver) -> None:
         self.driver = driver
@@ -37,11 +33,8 @@ class CustomSeleniumDriver:
         locator = locator.lower()
         locators = {'id': By.ID, 'xpath': By.XPATH, 'css_selector': By.CSS_SELECTOR, 'name': By.NAME,
                     'link_text': By.LINK_TEXT, 'class': By.CLASS_NAME}
-        try:
-            return locators[locator]
-        except Exception as err:
-            self.logger.error('Wrong Locator type! ' + str(err))
-            raise
+
+        return locators[locator]
 
     def get_element(self, locator: dict) -> WebElement:
         """
@@ -54,15 +47,9 @@ class CustomSeleniumDriver:
         locator_type = locator['locator_type']
         locator_info = locator['locator']
 
-        try:
-            by_type = self.get_by_type(locator_type.lower())
-            element = self.driver.find_element(by_type, locator_info)
-            self.logger.info("ELEMENT: " + element_name + " was found.")
-            return element
-
-        except Exception as err:
-            self.logger.error("ELEMENT: " + element_name + " was NOT found." + str(err))
-            raise
+        by_type = self.get_by_type(locator_type.lower())
+        element = self.driver.find_element(by_type, locator_info)
+        return element
 
     def get_elements(self, locator: dict) -> list([WebElement]):
         """
@@ -75,15 +62,9 @@ class CustomSeleniumDriver:
         locator_type = locator['locator_type']
         locator_info = locator['locator']
 
-        try:
-            by_type = self.get_by_type(locator_type.lower())
-            elements = self.driver.find_elements(by_type, locator_info)
-            self.logger.info("ELEMENT: " + element_name + " was found.")
-            return elements
-
-        except Exception as err:
-            self.logger.error("ELEMENT: " + element_name + " was NOT found." + str(err))
-            raise
+        by_type = self.get_by_type(locator_type.lower())
+        elements = self.driver.find_elements(by_type, locator_info)
+        return elements
 
     def take_screen_shot(self, log_message: str, directory: str = "../Screenshots/") -> None:
         """
@@ -100,14 +81,10 @@ class CustomSeleniumDriver:
         destination_file = os.path.join(current_directory, file_path)
         destination_directory = os.path.join(current_directory, directory)
 
-        try:
-            if not os.path.exists(destination_directory):
-                os.makedirs(destination_directory)
+        if not os.path.exists(destination_directory):
+            os.makedirs(destination_directory)
 
-            self.driver.save_screenshot(destination_file)
-            self.logger.info("Screen shot file saved to: " + destination_file)
-        except Exception as err:
-            self.logger.error("An Error has occurred: Could not save screen shot. " + str(err))
+        self.driver.save_screenshot(destination_file)
 
     def element_explicit_wait(self, locator: dict, timeout: int = 10, frequency: float = 0.5) -> WebElement:
         """
@@ -118,26 +95,17 @@ class CustomSeleniumDriver:
         :return: WebElement object
         """
 
-        try:
-            by_type = self.get_by_type(locator['locator_type'])
-            self.logger.info("Waiting for " + str(timeout) + " seconds for element.")
-            wait = WebDriverWait(self.driver, timeout=timeout, poll_frequency=frequency,
-                                 ignored_exceptions=[NoSuchElementException, ElementNotSelectableException,
-                                                     ElementNotVisibleException])
-            element = wait.until(ec.element_to_be_clickable((by_type, locator['locator'])))
-            self.logger.info("Element " + locator['Element name'] + " appeared on page")
-            return element
-        except Exception as err:
-            self.logger.error("Element " + locator['Element name'] + " not found." + str(err))
-            raise
+        by_type = self.get_by_type(locator['locator_type'])
+        wait = WebDriverWait(self.driver, timeout=timeout, poll_frequency=frequency,
+                                ignored_exceptions=[NoSuchElementException, ElementNotSelectableException,
+                                                    ElementNotVisibleException])
+        element = wait.until(ec.element_to_be_clickable((by_type, locator['locator'])))
+        return element
 
     def scroll_window(self, direction: str) -> None:
         """
         Scroll current window up or down.
         :param direction: Direction of scroll.
         """
-        try:
-            direction = str(-1000) if direction == "up" else str(1000)
-            self.driver.execute_script("window.scrollBy(0, " + direction + ");")
-        except Exception as err:
-            self.logger.error("Sorry, I can't scroll that page. Who knows why?." + str(err))
+        direction = str(-1000) if direction == "up" else str(1000)
+        self.driver.execute_script("window.scrollBy(0, " + direction + ");")
