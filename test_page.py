@@ -38,4 +38,4 @@ def test_goto_works():
     mockdriver = Mock()
     page = PythonPage(mockdriver, 'Python Homepage')
     page.goto()
-    mockdriver.driver.get.assert_called_with("https://www.python.org")
+    mockdriver.get.assert_called_with("https://www.python.org")

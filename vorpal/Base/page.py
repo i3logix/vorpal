@@ -31,7 +31,7 @@ class BasePage(ABC):
             for key, value in kwargs.items():
                 param_string += f"{key}={value}&"
         
-        self.driver.driver.get(self.url + param_string)
+        self.driver.get(self.url + param_string)
         # Return self to allow chaining
         # e.g. login_page.goto().login()
         return self
