@@ -109,3 +109,16 @@ class CustomSeleniumDriver:
         """
         direction = str(-1000) if direction == "up" else str(1000)
         self.driver.execute_script("window.scrollBy(0, " + direction + ");")
+
+    def close(self) -> None:
+        """
+        Close current browser instance
+        """
+        self.driver.close()
+
+    def get(self, url: str) -> None:
+        """
+        Navigate browser to provided url
+        :param url: Url to navigate to.
+        """
+        self.driver.get(url)

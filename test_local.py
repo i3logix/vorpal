@@ -5,9 +5,9 @@ def test_driver():
     Test that the custom_selenium_driver works at all
     """
     driver = custom_selenium_driver.CustomSeleniumDriver(webdriver.Chrome())
-    driver.driver.get('https://www.google.com')
+    driver.get('https://www.google.com')
     assert driver.get_title() == 'Google'
-    driver.driver.close()
+    driver.close()
 
 def test_driver_old():
     """
