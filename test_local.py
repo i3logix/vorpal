@@ -31,6 +31,31 @@ def test_elements():
     assert "No results found." not in driver.page_source
     driver.close()
 
+def test_customwebdriver_get_element():
+    """
+    Test that our custom webdriver class returns working extendedweblement from get_element
+    """
+    driver = custom_selenium_driver.CustomSeleniumDriver(webdriver.Chrome())
+    driver.driver.get('http://www.python.org')
+    search_field = driver.get_element({'Element name': 'Search input', 'locator_type': 'name', 'locator': 'q'})
+    search_field.set_value('pycon')
+    search_field.send_keys(Keys.RETURN)
+    assert "No results found." not in driver.driver.page_source
+    driver.driver.close()
+
+def test_customwebdriver_get_elements():
+    """
+    Test that our custom webdriver class returns list of working extendedweblements from get_elements
+    """
+    driver = custom_selenium_driver.CustomSeleniumDriver(webdriver.Chrome())
+    driver.driver.get('http://www.python.org')
+    search_field = driver.get_elements({'Element name': 'Search input', 'locator_type': 'name', 'locator': 'q'})[0]
+    search_field.set_value('pycon')
+    search_field.send_keys(Keys.RETURN)
+    assert "No results found." not in driver.driver.page_source
+    driver.driver.close()
+
+
 def test_http_endpoint():
     """
     Test that the BaseHttpEndpoint class can make a GET to a base url

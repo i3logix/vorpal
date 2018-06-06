@@ -7,7 +7,7 @@ from selenium.common.exceptions import NoSuchElementException, ElementNotSelecta
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.remote.webelement import WebElement
+from .element import ExtendedWebElement
 import time
 import os
 
@@ -36,10 +36,10 @@ class CustomSeleniumDriver:
 
         return locators[locator]
 
-    def get_element(self, locator: dict) -> WebElement:
+    def get_element(self, locator: dict) -> ExtendedWebElement:
         """
         Find specific element on current web page.
-        :param locator: {'Element name': Name, 'locator_type': 'xpath', 'locator_info': 'path to element'} of attribute.
+        :param locator: {'Element name': Name, 'locator_type': 'xpath', 'locator': 'path to element'} of attribute.
         :return: Selenium element.
         """
 
@@ -49,9 +49,9 @@ class CustomSeleniumDriver:
 
         by_type = self.get_by_type(locator_type.lower())
         element = self.driver.find_element(by_type, locator_info)
-        return element
+        return ExtendedWebElement(element, self)
 
-    def get_elements(self, locator: dict) -> list([WebElement]):
+    def get_elements(self, locator: dict) -> list([ExtendedWebElement]):
         """
         Find specific elements on current web page.
         :param locator: {Name, Value, Type} of attribute.
@@ -64,7 +64,7 @@ class CustomSeleniumDriver:
 
         by_type = self.get_by_type(locator_type.lower())
         elements = self.driver.find_elements(by_type, locator_info)
-        return elements
+        return [ExtendedWebElement(element, self) for element in elements]
 
     def take_screen_shot(self, log_message: str, directory: str = "../Screenshots/") -> None:
         """
@@ -86,7 +86,7 @@ class CustomSeleniumDriver:
 
         self.driver.save_screenshot(destination_file)
 
-    def element_explicit_wait(self, locator: dict, timeout: int = 10, frequency: float = 0.5) -> WebElement:
+    def element_explicit_wait(self, locator: dict, timeout: int = 10, frequency: float = 0.5) -> ExtendedWebElement:
         """
         Explicitly wait for an element on current page to be interactive.
         :param locator: locator of an element. 
@@ -100,7 +100,7 @@ class CustomSeleniumDriver:
                                 ignored_exceptions=[NoSuchElementException, ElementNotSelectableException,
                                                     ElementNotVisibleException])
         element = wait.until(ec.element_to_be_clickable((by_type, locator['locator'])))
-        return element
+        return ExtendedWebElement(element, self)
 
     def scroll_window(self, direction: str) -> None:
         """
