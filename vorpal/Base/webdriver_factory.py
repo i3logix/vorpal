@@ -4,7 +4,7 @@ WebDriver Factory class implementation.
 Creates a driver instance based on various browser configurations.
 """
 from selenium import webdriver
-
+from .custom_selenium_driver import CustomSeleniumDriver
 
 class WebDriverFactory:
     def __init__(self, browser, base_url):
@@ -16,7 +16,7 @@ class WebDriverFactory:
         self.browser = browser
         self.base_url = base_url
 
-    def get_webdriver_instance(self, waiting_time=5) -> webdriver:
+    def get_webdriver_instance(self, waiting_time=5) -> CustomSeleniumDriver:
         """
         Get WebDriver Instance based on the browser configuration.
         :param waiting_time: Implicit wait time for all elements on a web page.
@@ -35,4 +35,4 @@ class WebDriverFactory:
         driver.maximize_window()
         driver.get(self.base_url)
 
-        return driver
+        return CustomSeleniumDriver(driver)
