@@ -17,20 +17,12 @@ class CustomSeleniumDriver:
 
     def __init__(self, driver) -> None:
         self.driver = driver
-        webdriver.Chrome().find_element()
 
     def __getattr__(self, attr):
         """
         Give direct access to the underlying selenium driver's methods
         """
         return getattr(self.driver, attr)
-
-    def get_title(self) -> str:
-        """
-        Return the current title of web page.
-        :return: (string) Title of Page.
-        """
-        return self.driver.title
 
     def get_by_type(self, locator: str) -> By:
         """
@@ -122,31 +114,31 @@ class CustomSeleniumDriver:
 
     # SECTION: Individual web elements
     def find_element(self, by, value):
-        ExtendedWebElement(self.driver.find_element(by, value), self)
+        return ExtendedWebElement(self.driver.find_element(by, value), self)
 
     def find_element_by_class_name(self, name):
-        ExtendedWebElement(self.driver.find_element_by_class_name(name), self)
+        return ExtendedWebElement(self.driver.find_element_by_class_name(name), self)
 
     def find_element_by_css_selector(self, css_selector):
-        ExtendedWebElement(self.driver.find_element_by_css_selector(css_selector), self)
+        return ExtendedWebElement(self.driver.find_element_by_css_selector(css_selector), self)
 
     def find_element_by_id(self, id):
-        ExtendedWebElement(self.driver.find_element_by_id(id), self)
+        return ExtendedWebElement(self.driver.find_element_by_id(id), self)
 
     def find_element_by_link_text(self, link_text):
-        ExtendedWebElement(self.driver.find_element_by_link_text(link_text), self)
+        return ExtendedWebElement(self.driver.find_element_by_link_text(link_text), self)
 
     def find_element_by_name(self, name):
-        ExtendedWebElement(self.driver.find_element_by_name(name), self)
+        return ExtendedWebElement(self.driver.find_element_by_name(name), self)
 
     def find_element_by_partial_link_text(self, partial_link_text):
-        ExtendedWebElement(self.driver.find_element_by_partial_link_text(partial_link_text), self)
+        return ExtendedWebElement(self.driver.find_element_by_partial_link_text(partial_link_text), self)
 
     def find_element_by_tag_name(self, tag_name):
-        ExtendedWebElement(self.driver.find_element_by_tag_name(tag_name), self)
+        return ExtendedWebElement(self.driver.find_element_by_tag_name(tag_name), self)
 
     def find_element_by_xpath(self, xpath):
-        ExtendedWebElement(self.driver.find_element_by_xpath(xpath), self)
+        return ExtendedWebElement(self.driver.find_element_by_xpath(xpath), self)
 
     # SECTION: Web element collections
 
