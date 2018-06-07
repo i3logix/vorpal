@@ -1,4 +1,12 @@
-from vorpal import webdriver, Keys, ExtendedWebElement, custom_selenium_driver, BaseHttpEndpoint
+from vorpal import webdriver, Keys, ExtendedWebElement, custom_selenium_driver, BaseHttpEndpoint, WebDriverFactory
+import pytest
+
+@pytest.fixture
+def custom_driver():
+    driver_factory = WebDriverFactory('chrome', 'http://www.python.org')
+    custom_driver = custom_selenium_driver.CustomSeleniumDriver(driver_factory.get_webdriver_instance())
+    yield custom_driver
+    custom_driver.close()
 
 def test_driver():
     """
