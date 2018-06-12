@@ -8,13 +8,13 @@ def driver():
     driver_factory = WebDriverFactory('chrome', 'http://www.python.org')
     driver = driver_factory.get_webdriver_instance()
     yield driver
-    driver.close()
+    driver.quit()
 
 @pytest.fixture
 def selenium_driver():
     driver = webdriver.Chrome()
     yield driver
-    driver.close()
+    driver.quit()
 
 def test_driver(driver):
     """
@@ -29,16 +29,6 @@ def test_driver_old(selenium_driver):
     """
     selenium_driver.get('http://www.python.org')
     assert selenium_driver.title == 'Welcome to Python.org'
-
-def test_element(selenium_driver):
-    """
-    Test that the ExtendedWebElement class works at all
-    """
-    selenium_driver.get('http://www.python.org')
-    search_field = ExtendedWebElement(selenium_driver.find_element_by_name("q"), selenium_driver)
-    search_field.set_value('pycon')
-    search_field.send_keys(Keys.RETURN)
-    assert "No results found." not in selenium_driver.page_source
 
 def test_customwebdriver_get_element(driver):
     """

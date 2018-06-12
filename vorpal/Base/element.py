@@ -2,7 +2,7 @@
 Module containing wrapper class for Selenium Web.
 """
 
-from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.remote.webelement import WebElement, By
 from selenium.webdriver.common.action_chains import ActionChains
 
 class ExtendedWebElement:
@@ -10,17 +10,27 @@ class ExtendedWebElement:
     Extends web elements with additional functionality.
     """
 
-    def __init__(self, element: WebElement, driver):
+    def __init__(self, driver, name: str, locator: str, by: By = By.CSS_SELECTOR, nth_of_type=1):
         """
         Initializes ExtendedWebElement with Selenium WebElement.
-        :param element: base Selenium WebElement
-        :param driver: Selenium driver for methods that require knowledge of driver/browser
+        :param driver: CustomSeleniumDriver
+        :param name: human-friendly name for element
+        :param locator: property value
+        :param by: (optional) property by which to find element (default CSS)
+        :param nth_of_type: (optional) index of element in list of elements if more than one expected to match locator
         """
-        self.element = element
         self.driver = driver
+        self.name = name
+        self.locator = locator
+        self.by = by
+        self.__element = None
 
-    def __getattr__(self, attr):
-        return getattr(self.element, attr)
+    @property
+    def element(self):
+        if self.__element is None:
+            self.__element = self.driver.driver.find_element(self.by, self.locator)
+
+        return self.__element
 
     # Overwritten methods from WebElement
     @property
@@ -31,13 +41,13 @@ class ExtendedWebElement:
             text = self.element.get_attribute('value')
         else:
             text =  self.element.text
-        
+
         # If still no text, try 'innerText' attribute
-        if len(text) == 0:
-            text = self.element.get_attribute("innerText")
-        
+        if text is None or len(text) == 0:
+            text = self.element.get_attribute("innerText") or ''
+
         return text.strip()
-    
+
     @property
     def text_raw(self):
         """The raw 'text' attribute of an element, regardless of tag_name"""
@@ -50,8 +60,50 @@ class ExtendedWebElement:
         """
         self.element.clear()
         self.element.send_keys(text_value)
-    
+
     def double_click(self):
         actions = ActionChains(self.driver)
         actions.double_click(self.element)
         actions.perform()
+
+    # Simple pass-throughs from WebElement
+    def click(self):
+        self.element.click()
+
+    @property
+    def tag_name(self):
+        return self.element.tag_name
+
+    def submit(self):
+        self.element.submit()
+
+    def clear(self):
+        self.element.clear()
+
+    def get_property(self, name):
+        return self.element.get_property(name)
+
+    def get_attribute(self, name):
+        return self.element.get_attribute(name)
+
+    def is_selected(self):
+        return self.element.is_selected
+
+    def is_enabled(self):
+        return self.element.is_enabled()
+
+    def send_keys(self, value):
+        self.element.send_keys(value)
+
+    def is_displayed(self):
+        return self.element.is_displayed()
+
+    @property
+    def size(self):
+        return self.element.size
+
+    def location(self):
+        return self.element.location
+
+    def rect(self):
+        return self.element.rect
