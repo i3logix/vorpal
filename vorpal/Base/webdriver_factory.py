@@ -7,7 +7,8 @@ from selenium import webdriver
 from .custom_selenium_driver import CustomSeleniumDriver
 
 class WebDriverFactory:
-    def __init__(self, browser, base_url):
+    
+    def __init__(self, browser, base_url, webdriver = webdriver):
         """
         Initialize WebDriverFactory class.
         :param browser: specified browser.
@@ -15,6 +16,7 @@ class WebDriverFactory:
         """
         self.browser = browser
         self.base_url = base_url
+        self.webdriver = webdriver
 
     def get_webdriver_instance(self, waiting_time=5) -> CustomSeleniumDriver:
         """
@@ -24,11 +26,11 @@ class WebDriverFactory:
         """
 
         if self.browser == "firefox":
-            driver = webdriver.Firefox()
+            driver = self.webdriver.Firefox()
         elif self.browser == "IE":
-            driver = webdriver.Ie()
+            driver = self.webdriver.Ie()
         else:
-            driver = webdriver.Chrome()
+            driver = self.webdriver.Chrome()
             driver.set_window_size(1920, 1080)
 
         driver.implicitly_wait(waiting_time)
