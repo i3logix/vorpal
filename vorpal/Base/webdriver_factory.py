@@ -31,10 +31,10 @@ class WebDriverFactory:
             driver = self.webdriver.Ie()
         else:
             driver = self.webdriver.Chrome()
-            # driver.set_window_size(1920, 1080)
+            driver.set_window_size(1920, 1080)
 
-        # driver.implicitly_wait(waiting_time)
-        # driver.maximize_window()
-        # driver.get(self.base_url)
+        driver.implicitly_wait(waiting_time)
+        driver.maximize_window()
+        driver.get(self.base_url)
 
-        # return CustomSeleniumDriver(driver)
+        return CustomSeleniumDriver(driver)
