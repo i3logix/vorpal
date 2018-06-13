@@ -145,32 +145,32 @@ class CustomSeleniumDriver:
         self.driver.minimize_window()
 
     # SECTION: Individual web elements
-    def find_element(self, by, value):
-        return ExtendedWebElement(self, None, value, by)
+    def find_element(self, by, value, element_name=None):
+        return ExtendedWebElement(self, element_name, value, by)
 
-    def find_element_by_class_name(self, name):
-        return ExtendedWebElement(self, None, name, By.CLASS_NAME)
+    def find_element_by_class_name(self, name, element_name=None):
+        return ExtendedWebElement(self, element_name, name, By.CLASS_NAME)
 
-    def find_element_by_css_selector(self, css_selector):
-        return ExtendedWebElement(self, None, css_selector, By.CSS_SELECTOR)
+    def find_element_by_css_selector(self, css_selector, element_name=None):
+        return ExtendedWebElement(self, element_name, css_selector, By.CSS_SELECTOR)
 
-    def find_element_by_id(self, id):
-        return ExtendedWebElement(self, None, id, By.ID)
+    def find_element_by_id(self, id, element_name=None):
+        return ExtendedWebElement(self, element_name, id, By.ID)
 
-    def find_element_by_link_text(self, link_text):
-        return ExtendedWebElement(self, None, link_text, By.LINK_TEXT)
+    def find_element_by_link_text(self, link_text, element_name=None):
+        return ExtendedWebElement(self, element_name, link_text, By.LINK_TEXT)
 
-    def find_element_by_name(self, name):
-        return ExtendedWebElement(self, None, name, By.NAME)
+    def find_element_by_name(self, name, element_name=None):
+        return ExtendedWebElement(self, element_name, name, By.NAME)
 
-    def find_element_by_partial_link_text(self, partial_link_text):
-        return ExtendedWebElement(self, None, partial_link_text, By.PARTIAL_LINK_TEXT)
+    def find_element_by_partial_link_text(self, partial_link_text, element_name=None):
+        return ExtendedWebElement(self, element_name, partial_link_text, By.PARTIAL_LINK_TEXT)
 
-    def find_element_by_tag_name(self, tag_name):
-        return ExtendedWebElement(self, None, tag_name, By.TAG_NAME)
+    def find_element_by_tag_name(self, tag_name, element_name=None):
+        return ExtendedWebElement(self, element_name, tag_name, By.TAG_NAME)
 
-    def find_element_by_xpath(self, xpath):
-        return ExtendedWebElement(self, None, xpath, By.XPATH)
+    def find_element_by_xpath(self, xpath, element_name=None):
+        return ExtendedWebElement(self, element_name, xpath, By.XPATH)
 
     # SECTION: Web element collections
 
