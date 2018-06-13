@@ -5,7 +5,10 @@ import os
 
 @pytest.fixture
 def page():
-    print(os.getcwd())
+    """
+    Return url and title of local test webpage
+    Assumes test.html is in current working directory (os.getcwd())
+    """
     return {
         'title': 'Vorpal',
         'url': 'file:{}/test.html'.format(os.getcwd())
