@@ -46,3 +46,30 @@ def test_set_value(element_and_drivers):
 
     element_mock.clear.assert_called_once
     element_mock.send_keys.assert_called_once_with('a')
+
+def test_text_raw(element_and_drivers):
+    e, driver, element_mock = element_and_drivers
+
+    element_mock.text = 'a'
+
+    val = e.text_raw
+    assert(val == 'a')
+
+@pytest.mark.parametrize('tag_name,expected',[
+    ('input', 'a'),
+    ('h1', 'b'),
+    ('input', ''),
+])
+def test_text(element_and_drivers, tag_name, expected):
+    """
+    Test the text property
+    This property accesses the selenium element 'value' for inputs,
+        'text' for non-inputs and 'innerText' if no text found in value/text attribute
+    """
+    e, driver, element_mock = element_and_drivers
+
+    element_mock.tag_name = tag_name
+    element_mock.get_attribute.return_value = expected
+    element_mock.text = 'b'
+
+    assert(e.text == expected)
