@@ -19,13 +19,13 @@ def driver(page):
     driver_factory = WebDriverFactory('chrome', page['url'])
     driver = driver_factory.get_webdriver_instance()
     yield driver
-    driver.close()
+    driver.quit()
 
 @pytest.fixture
 def selenium_driver():
     driver = webdriver.Chrome()
     yield driver
-    driver.close()
+    driver.quit()
 
 def test_driver(driver, page):
     """
@@ -41,12 +41,12 @@ def test_driver_old(selenium_driver, page):
     selenium_driver.get(page['url'])
     assert selenium_driver.title == page['title']
 
-def test_element(selenium_driver, page):
+def test_element(driver, page):
     """
     Test that the ExtendedWebElement class works at all
     """
-    selenium_driver.get(page['url'])
-    h1 = ExtendedWebElement(selenium_driver.find_element_by_id("test-h1"), selenium_driver)
+    driver.get(page['url'])
+    h1 = ExtendedWebElement(driver, 'test h1', 'test-h1', By.ID)
     assert(h1.text == 'Test H1')
 
 def test_customwebdriver_get_element(driver):
