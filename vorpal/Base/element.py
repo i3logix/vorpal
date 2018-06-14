@@ -86,15 +86,18 @@ class ExtendedWebElement:
     def get_attribute(self, name):
         return self.element.get_attribute(name)
 
+    @property
     def is_selected(self):
         return self.element.is_selected
 
+    @property
     def is_enabled(self):
         return self.element.is_enabled()
 
     def send_keys(self, value):
         self.element.send_keys(value)
 
+    @property
     def is_displayed(self):
         return self.element.is_displayed()
 
@@ -102,8 +105,10 @@ class ExtendedWebElement:
     def size(self):
         return self.element.size
 
+    @property
     def location(self):
         return self.element.location
 
+    @property
     def rect(self):
         return self.element.rect
