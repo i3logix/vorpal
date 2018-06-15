@@ -3,7 +3,7 @@ import pytest
 from vorpal import webdriver, Keys, By
 import os
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def page():
     """
     Return url and title of local test webpage
@@ -14,14 +14,14 @@ def page():
         'url': 'file:{}/test.html'.format(os.getcwd())
         }
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def driver(page):
     driver_factory = WebDriverFactory('chrome', page['url'])
     driver = driver_factory.get_webdriver_instance()
     yield driver
     driver.quit()
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def selenium_driver():
     driver = webdriver.Chrome()
     yield driver
