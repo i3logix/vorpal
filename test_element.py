@@ -5,8 +5,8 @@ import pytest
 @pytest.fixture
 def default_element_data():
     return {
-        'name':'',
-        'locator': '',
+        'name':'name',
+        'locator': 'locator',
         'by': By.CSS_SELECTOR
     }
 
@@ -17,7 +17,7 @@ def element_and_drivers():
     driver_mock.driver.find_element.return_value = element_mock
     driver = driver_mock
 
-    return (ExtendedWebElement(driver, '', '', By.CSS_SELECTOR), driver_mock, element_mock)
+    return (ExtendedWebElement(driver, 'name', 'locator', By.CSS_SELECTOR), driver_mock, element_mock)
     
 
 def test_constructor(default_element_data):
@@ -38,6 +38,13 @@ def test_element_cached(element_and_drivers):
     
     element_mock.click.assert_called()
     assert(len([call for call in element_mock.mock_calls if call == call.click()]) == 2)
+
+def test_click_js(element_and_drivers):
+    e, driver, element_mock = element_and_drivers
+
+    e.click_js()
+
+    driver.execute_script.assert_called_once_with('document.querySelector("locator").click()')
 
 def test_set_value(element_and_drivers):
     e, driver, element_mock = element_and_drivers
@@ -151,4 +158,37 @@ def test_rect(element_and_drivers):
     element_mock.rect = 'a'
 
     assert(e.rect == 'a')
+
+@pytest.mark.parametrize('by,expected', [
+    (By.NAME, '[name="locator"]'),
+    (By.ID, '#locator'),
+    (By.CSS_SELECTOR, 'locator'),
+    (By.CLASS_NAME, '.locator'),
+    (By.TAG_NAME, 'locator'),
+])
+def test_convert_locator_to_css(by, expected):
+    driver_mock = mock.MagicMock(name='driver')
+    element_mock = mock.MagicMock(name='element')
+    driver_mock.driver.find_element.return_value = element_mock
+    driver = driver_mock
+    e = ExtendedWebElement(driver, 'name', 'locator', by)
+
+    assert(e.convert_locator_to_css() == expected)
+
+@pytest.mark.parametrize('by', [
+    By.XPATH,
+    By.LINK_TEXT,
+    By.PARTIAL_LINK_TEXT
+])
+def test_convert_locator_to_css_errorc(by):
+    driver_mock = mock.MagicMock(name='driver')
+    element_mock = mock.MagicMock(name='element')
+    driver_mock.driver.find_element.return_value = element_mock
+    driver = driver_mock
+    e = ExtendedWebElement(driver, 'name', 'locator', by)
+    try:
+        e.convert_locator_to_css()
+        raise Exception("Expected NotImplementedError")
+    except NotImplementedError:
+        pass
 

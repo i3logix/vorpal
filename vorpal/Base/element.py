@@ -5,6 +5,7 @@ Module containing wrapper class for Selenium Web.
 from selenium.webdriver.remote.webelement import WebElement, By
 from selenium.webdriver.common.action_chains import ActionChains
 
+
 class ExtendedWebElement:
     """
     Extends web elements with additional functionality.
@@ -23,6 +24,7 @@ class ExtendedWebElement:
         self.name = name
         self.locator = locator
         self.by = by
+        self.nth_of_type = nth_of_type
         self.__element = None
 
     @property
@@ -60,6 +62,11 @@ class ExtendedWebElement:
         """
         self.element.clear()
         self.element.send_keys(text_value)
+
+    def click_js(self):
+        """Click element using javascript (does not require element visibility)"""
+        css_selector = self.convert_locator_to_css()
+        self.driver.execute_script(f'document.querySelector("{css_selector}").click()')
 
     def double_click(self):
         actions = ActionChains(self.driver)
@@ -112,3 +119,19 @@ class ExtendedWebElement:
     @property
     def rect(self):
         return self.element.rect
+
+    # Other methods
+    def convert_locator_to_css(self):
+        """Returns element locator as css selector string"""
+        if self.by is By.CSS_SELECTOR:
+            return self.locator
+        elif self.by is By.ID:
+            return f'#{self.locator}'
+        elif self.by is By.CLASS_NAME:
+            return f'.{self.locator}'
+        elif self.by is By.TAG_NAME:
+            return self.locator
+        elif self.by in [By.NAME]:
+            return f'[name="{self.locator}"]'
+        else:
+            raise NotImplementedError(f"Cannot convert {self.by} to css selector")
