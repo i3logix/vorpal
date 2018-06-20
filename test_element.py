@@ -13,6 +13,7 @@ def default_element_data():
 @pytest.fixture
 def element_and_drivers():
     driver_mock = mock.MagicMock(name='driver')
+    driver_mock.implicit_wait = 5
     element_mock = mock.MagicMock(name='element')
     driver_mock.driver.find_element.return_value = element_mock
     driver = driver_mock

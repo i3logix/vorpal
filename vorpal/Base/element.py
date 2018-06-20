@@ -1,9 +1,10 @@
 """
 Module containing wrapper class for Selenium Web.
 """
-
 from selenium.webdriver.remote.webelement import WebElement, By
 from selenium.webdriver.common.action_chains import ActionChains
+from .decorators import retry_with_timeout
+
 
 
 class ExtendedWebElement:
@@ -55,6 +56,7 @@ class ExtendedWebElement:
         """The raw 'text' attribute of an element, regardless of tag_name"""
         return self.element.text
 
+    @retry_with_timeout
     def set_value(self, text_value: str):
         """
         Set value in text field, clearing preexisting content.
@@ -68,12 +70,14 @@ class ExtendedWebElement:
         css_selector = self.convert_locator_to_css()
         self.driver.execute_script(f'document.querySelector("{css_selector}").click()')
 
+    @retry_with_timeout
     def double_click(self):
         actions = ActionChains(self.driver)
         actions.double_click(self.element)
         actions.perform()
 
     # Simple pass-throughs from WebElement
+    @retry_with_timeout
     def click(self):
         self.element.click()
 
@@ -84,6 +88,7 @@ class ExtendedWebElement:
     def submit(self):
         self.element.submit()
 
+    @retry_with_timeout
     def clear(self):
         self.element.clear()
 
@@ -101,6 +106,7 @@ class ExtendedWebElement:
     def is_enabled(self):
         return self.element.is_enabled()
 
+    @retry_with_timeout
     def send_keys(self, value):
         self.element.send_keys(value)
 
