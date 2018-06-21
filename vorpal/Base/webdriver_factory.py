@@ -37,4 +37,4 @@ class WebDriverFactory:
         driver.maximize_window()
         driver.get(self.base_url)
 
-        return CustomSeleniumDriver(driver)
+        return CustomSeleniumDriver(driver, implicit_wait=waiting_time)

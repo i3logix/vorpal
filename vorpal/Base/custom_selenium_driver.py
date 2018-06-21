@@ -15,8 +15,9 @@ import os
 
 class CustomSeleniumDriver:
 
-    def __init__(self, driver) -> None:
+    def __init__(self, driver, implicit_wait=5) -> None:
         self.driver = driver
+        self.implicit_wait = implicit_wait
 
     def get_by_type(self, locator: str) -> By:
         """
