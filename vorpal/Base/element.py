@@ -31,7 +31,10 @@ class ExtendedWebElement:
     @property
     def element(self):
         if self.__element is None:
-            self.__element = self.driver.driver.find_element(self.by, self.locator)
+            if self.nth_of_type == 1:
+                self.__element = self.driver.driver.find_element(self.by, self.locator)
+            else:
+                self.__element = self.driver.driver.find_elements(self.by, self.locator)[self.nth_of_type]
 
         return self.__element
 
