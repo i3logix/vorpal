@@ -60,12 +60,13 @@ def test_customwebdriver_get_elements(driver):
     """
     Test that our custom webdriver class returns list of working extendedweblements from get_elements
     """
-    li_1 = driver.get_elements({
+    li_list = driver.get_elements({
         'Element name': 'List items',
         'locator_type': 'css_selector',
         'locator': 'li'
-        })[0]
-    assert li_1.text == 'li-1'
+        })
+    assert li_list[0].text == 'li-1'
+    assert li_list[1].text == 'li-2'
 
 def test_customwebdriver_find_element(driver):
     """
