@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='vorpal',
-    version='3.1.1',
+    version='3.2.2',
     description='End-to-end testing framework',
     long_description='End-to-end testing framework',
     long_description_content_type='text/markdown',
