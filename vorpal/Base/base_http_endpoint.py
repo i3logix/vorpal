@@ -20,7 +20,7 @@ class BaseHttpEndpoint:
         # If the provided base_url ends with '/', snip that off
         self.base_url = base_url if base_url[-1] != '/' else base_url[:-1]
 
-    def GET(self, relative_path='/', query_params={}, **kwargs):
+    def GET(self, relative_path='', query_params={}, **kwargs):
         """
         Send GET request to endpoint
         :param relative_path: (optional) path to endpoint relative to base_url (e.g. '/users')
@@ -30,7 +30,7 @@ class BaseHttpEndpoint:
         """
         return requests.get(self.base_url + relative_path, params=query_params, **kwargs)
     
-    def POST(self, relative_path='/', data = {}, is_json=True, **kwargs):
+    def POST(self, relative_path='', data = {}, is_json=True, **kwargs):
         """
         Send POST request to endpoint
         :param relative_path: (optional) path to endpoint relative to base_url (e.g. '/users')
@@ -45,7 +45,7 @@ class BaseHttpEndpoint:
         else:
             return requests.post(self.base_url + relative_path, data=data, **kwargs)
     
-    def PUT(self, relative_path='/', data = {}, is_json=True, **kwargs):
+    def PUT(self, relative_path='', data = {}, is_json=True, **kwargs):
         """
         Send PUT request to endpoint
         :param relative_path: (optional) path to endpoint relative to base_url (e.g. '/users')
@@ -60,7 +60,7 @@ class BaseHttpEndpoint:
         else:
             return requests.put(self.base_url + relative_path, data=data, **kwargs)
     
-    def PATCH(self, relative_path='/', data = {}, is_json=True, **kwargs):
+    def PATCH(self, relative_path='', data = {}, is_json=True, **kwargs):
         """
         Send PATCH request to endpoint
         :param relative_path: (optional) path to endpoint relative to base_url (e.g. '/users')
@@ -75,7 +75,7 @@ class BaseHttpEndpoint:
         else:
             return requests.patch(self.base_url + relative_path, data=data, **kwargs)
 
-    def DELETE(self, relative_path='/', **kwargs):
+    def DELETE(self, relative_path='', **kwargs):
         """
         Send DELETE request to endpoint
         :param relative_path: (optional) path to endpoint relative to base_url (e.g. '/users')
