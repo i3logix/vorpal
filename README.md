@@ -27,6 +27,39 @@ From Python 3.3 to 3.4 the recommended way to create a virtual environment was t
     
 **Tip:** https://realpython.com/python-virtual-environments-a-primer/ This site seems to contain some useful tips about maintaining multiple environments and using a tool called `virtualenvwrapper` to assist with this maintenance.
 
+### How to use
+#### Drivers
+Drivers are what takes your scripts and turns them into actions on a page.
+Vorpal is built using Selenium drivers, but wraps them in custom classes so users should not need to interact with
+Selenium directly.
+
+##### WebdriverFactory
+Vorpal's `WebdriverFactory` class is the recommended class to use to create new webdriver instances for scripts.
+By specifying the `browser` ('chrome', 'firefox', or 'IE') and `base_url` parameters in the constructor,
+you will be able to easily generate new webdriver instances via the `get_webdriver_instance` method.
+
+By setting the `remote` parameter to `True` and optionally specifying a `remote_url` you can have drivers
+you create connect to a Selenium server or grid running either locally or a url you have access to.
+
+The `get_webdriver_instance` accepts a `waiting_time` parameter, which defines the default time waited for elements
+by the driver instance returned. This is equivalent to setting the implicit webdriver wait for a driver in Selenium,
+meaning you will not need to tell the driver to wait for elements to appear after navigating to a new page unless
+you want a different timeout for that page or element specifically.
+
+##### CustomSeleniumDriver
+
+#### Elements
+Elements are basically HTML elements on the page.
+
+#### Page objects
+It is often helpful to think of websites as collections of one or more pages.
+
+#### APIs
+Sometimes we can directly use site APIs to get the information we need.
+
+
+
+## Contributing to Vorpal
 ### Testing updates locally
 Before pushing up changes, we want to test our changes locally. To do this, we use `pytest` to run test cases stored in `test_local.py` and `test_page.py`. Run the `pytest` command from the command line at the project root to ensure your changes haven't unexpectedly broken existing functionality, and update tests where appropriate if your changes lead to different results.
 
