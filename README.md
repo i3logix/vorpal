@@ -1,6 +1,7 @@
 # Vorpal: End-to-end Web Automation Framework for Python
 ## Goals
-Vorpal is an end-to-end browser and API automation framework designed to balance ease of development with performance and customizability.
+Vorpal is an end-to-end browser and API automation framework designed to balance ease of development with performance
+and customizability.
 
 ## How to use Vorpal
 ### Requirements
@@ -15,7 +16,8 @@ Vorpal is an end-to-end browser and API automation framework designed to balance
     * Command: `source env/bin/activate`
     * The following information obtained from: https://realpython.com/python-virtual-environments-a-primer/
     ** Notice how your prompt is now prefixed with the name of your environment (env, in this case)
-    ** This is the indicator that env is currently active, which means the python executable will only use this environment’s packages and settings.
+    ** This is the indicator that env is currently active, which means the python executable will only use this
+    environment’s packages and settings.
 3. Install the Vorpal framework via pip
     * Command: `pip3 install vorpal`
 4. Install any other necessary dependencies for your project
@@ -52,16 +54,22 @@ you want a different timeout for that page or element specifically.
 
 ##### CustomSeleniumDriver
 The `CustomSeleniumDriver` class is Vorpal's wrapper for Selenium drivers. It implements most of the functionality
-of the base Selenium driver, but 
+of the base Selenium driver, but adds a few bits of custom logic to improve quality of life.
+
+The driver will return Vorpal's version of web elements as opposed to a Selenium web element. The differences between
+Vorpal and Selenium web elements are covered in detail in the `Elements` section below.
 
 #### Elements
 Elements are basically HTML elements on the page.
+TODO: Add more details.
 
 #### Page objects
 It is often helpful to think of websites as collections of one or more pages.
+TODO: Add more details.
 
 #### APIs
 Sometimes we can directly use site APIs to get the information we need.
+TODO: Add more details.
 
 
 
