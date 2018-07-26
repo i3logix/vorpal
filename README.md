@@ -19,13 +19,17 @@ Vorpal is an end-to-end browser and API automation framework designed to balance
 3. Install the Vorpal framework via pip
     * Command: `pip3 install vorpal`
 4. Install any other necessary dependencies for your project
-    * **Note:** Although Vorpal uses Selenium, you do _not_ need to separately install `selenium` - it is installed as a dependency of Vorpal
+    * **Note:** Although Vorpal uses Selenium, you do _not_ need to separately install `selenium` - it is installed as
+    a dependency of Vorpal
 
-<a name="footnote1"><sup>1</sup></a> <i><small>The pyvenv command is a wrapper around the venv module and some users have indicated we might want to consider avoiding the wrapper and just using the module directly.
-
-From Python 3.3 to 3.4 the recommended way to create a virtual environment was to use the pyvenv command-line tool that also comes included with your Python 3 installation by default. But on 3.6 and above, python3 -m venv is the way to go.</small></i>
+<a name="footnote1"><sup>1</sup></a> <i><small>The pyvenv command is a wrapper around the venv module and some users
+have indicated we might want to consider avoiding the wrapper and just using the module directly. From Python 3.3 to 3.4
+the recommended way to create a virtual environment was to use the pyvenv command-line tool that also comes included
+with your Python 3 installation by default. But on 3.6 and above, python3 -m venv is the way to go.</small></i>
     
-**Tip:** https://realpython.com/python-virtual-environments-a-primer/ This site seems to contain some useful tips about maintaining multiple environments and using a tool called `virtualenvwrapper` to assist with this maintenance.
+**Tip:** https://realpython.com/python-virtual-environments-a-primer/ 
+This site seems to contain some useful tips about maintaining multiple environments and using a tool called
+`virtualenvwrapper` to assist with this maintenance.
 
 ### How to use
 #### Drivers
@@ -47,6 +51,8 @@ meaning you will not need to tell the driver to wait for elements to appear afte
 you want a different timeout for that page or element specifically.
 
 ##### CustomSeleniumDriver
+The `CustomSeleniumDriver` class is Vorpal's wrapper for Selenium drivers. It implements most of the functionality
+of the base Selenium driver, but 
 
 #### Elements
 Elements are basically HTML elements on the page.
@@ -61,15 +67,22 @@ Sometimes we can directly use site APIs to get the information we need.
 
 ## Contributing to Vorpal
 ### Testing updates locally
-Before pushing up changes, we want to test our changes locally. To do this, we use `pytest` to run test cases stored in `test_local.py` and `test_page.py`. Run the `pytest` command from the command line at the project root to ensure your changes haven't unexpectedly broken existing functionality, and update tests where appropriate if your changes lead to different results.
+Before pushing up changes, we want to test our changes locally. To do this, we use `pytest` to run test cases stored
+in `test_local.py` and `test_page.py`. Run the `pytest` command from the command line at the project root to ensure
+your changes haven't unexpectedly broken existing functionality, and update tests where appropriate if your changes
+lead to different results.
 
-If you're adding new functionality, please be sure to write well-targeted test cases that test the new feature in isolation if at all possible. This makes it easier to track down any major breaking changes down the road.
+If you're adding new functionality, please be sure to write well-targeted test cases that test the new feature in
+isolation if at all possible. This makes it easier to track down any major breaking changes down the road.
 
-If any of the existing test files start getting too big, or if your feature requires extensive testing, feel free to make an additional test file (this was done in the case of `BasePage`, which led to `test_page.py`). If you do, please update this documentation as part of your PR.
+If any of the existing test files start getting too big, or if your feature requires extensive testing, feel free to
+make an additional test file (this was done in the case of `BasePage`, which led to `test_page.py`).
+If you do, please update this documentation as part of your PR.
 
 ## Directions for Vorpal package owners/maintainers
 ### How to upload a new package version
-As we build new features for Vorpal we will want to make them available on pypi.python.org. To do this, we must complete the following steps:
+As we build new features for Vorpal we will want to make them available on pypi.python.org.
+To do this, we must complete the following steps:
 
 1. Update the `version` argument in `setup.py`
     * We use semantic versioning, so please follow [semantic versioning guidelines]:
