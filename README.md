@@ -60,8 +60,11 @@ The driver will return Vorpal's version of web elements as opposed to a Selenium
 Vorpal and Selenium web elements are covered in detail in the `Elements` section below.
 
 #### Elements
-Elements are basically HTML elements on the page.
-TODO: Add more details.
+Elements are basically HTML elements on the page. Vorpal uses a wrapped version of Selenium web elements, and while 
+you can access the underlying Selenium element directly using the `element` property, almost all functionality available
+in Selenium is also available in Vorpal.
+
+TODO: Talk about lazy loading.
 
 #### Page objects
 It is often helpful to think of websites as collections of one or more pages.
@@ -69,7 +72,7 @@ TODO: Add more details.
 
 #### APIs
 Sometimes we can directly use site APIs to get the information we need.
-TODO: Add more details.
+TODO: Talk about built-in GET, POST, etc methods.
 
 
 
