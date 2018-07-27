@@ -64,16 +64,31 @@ Elements are basically HTML elements on the page. Vorpal uses a wrapped version 
 you can access the underlying Selenium element directly using the `element` property, almost all functionality available
 in Selenium is also available in Vorpal.
 
-TODO: Talk about lazy loading.
+The biggest difference between Vorpal's elements and those of Selenium is that Vorpal elements lazy-load.
+This is to say that the `ExtendedWebElement` constructor does not immediately trigger a search for an element
+on the page: the element is only searched for when a property that depends on element existence is accessed,
+and if an element is found it will then be immediately available for subsequent access without an additional
+search on the page.
+
+For example, accessing `my_element.locator` will not trigger a search for the element because the locator
+is set at the time of the constructor and is the same regardless of whether that element currently exists
+on the page. On the other hand, `my_element.text` will trigger a search for the element on the page since
+`.text` represents the current value of the element's text as it appears on the page.
+
+One important thing to note is that once an element has been found, the result is cached. This is important
+because it means if that element were to be removed from the page (perhaps it is an item in a dropdown
+that closes) and then a new element is added to the page that matches the same selector (the dropdown
+is expanded again), attempts to interact with the element will throw a stale reference exception since
+the original element is no longer present and ExtendedWebElement will not attempt to find a new element
+that matches its locator. 
 
 #### Page objects
-It is often helpful to think of websites as collections of one or more pages.
-TODO: Add more details.
+It is often helpful to think of websites as collections of one or more pages. Vorpal provides a basic implementation
+of a page class that users can extend when building their own page objects.
 
 #### APIs
-Sometimes we can directly use site APIs to get the information we need.
-TODO: Talk about built-in GET, POST, etc methods.
-
+Sometimes we can directly use site APIs to get the information we need. Vorpal provides a basic implementation
+of an api class that users can extend when building their own api classes.
 
 
 ## Contributing to Vorpal
